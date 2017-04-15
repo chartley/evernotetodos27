@@ -139,3 +139,11 @@ AUTHENTICATION_BACKENDS = (
 # Site required; http://stackoverflow.com/a/35389220
 
 SITE_ID = 1
+
+# django-allauth conf
+
+SOCIALACCOUNT_PROVIDERS = {
+    'evernote': {
+        'EVERNOTE_HOSTNAME': 'evernote.com'  # defaults to sandbox.evernote.com
+    }
+}
