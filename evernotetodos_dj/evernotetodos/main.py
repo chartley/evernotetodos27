@@ -8,6 +8,14 @@ def get_todos(auth_token):
     client = EvernoteClient(token=auth_token)
     note_store = client.get_note_store()
 
+    # check token has basic auth by listing notes (allowed without full auth)
+    try:
+        notebooks = note_store.listNotebooks()
+        n_notebooks = len(notebooks)
+        print '[OK] Evernote API working, %s notebooks' % n_notebooks
+    except Exception as e:
+        print '[FAIL] Evernote API failure: %s' % e
+
     # search for notes which have #todo content
     # see http://dev.evernote.com/doc/articles/search.php
     notefilter = NoteStore.NoteFilter()
@@ -43,4 +51,7 @@ def get_todos(auth_token):
 
 # import sys
 # dev_token = sys.argv[1]
-# get_todos(dev_token)
+# try:
+#     get_todos(dev_token)
+# except Exception as e:
+#     print 'Exception: %s'
