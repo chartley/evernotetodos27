@@ -54,4 +54,4 @@ def get_todos(auth_token):
 # try:
 #     get_todos(dev_token)
 # except Exception as e:
-#     print 'Exception: %s'
+#     print 'Exception: %s' % e
