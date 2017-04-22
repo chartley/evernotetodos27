@@ -1,0 +1,2 @@
+# at 5p PST email #todos
+00 00 * * 0-4 django  cd ~/django_project && ./manage.py emailtodos 5
