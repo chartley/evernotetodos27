@@ -5,7 +5,7 @@ from xml.etree import ElementTree as ET
 from evernote.api.client import EvernoteClient, NoteStore
 
 def get_todos(auth_token):
-    client = EvernoteClient(token=auth_token)
+    client = EvernoteClient(token=auth_token, sandbox=False)
     note_store = client.get_note_store()
 
     # check token has basic auth by listing notes (allowed without full auth)
@@ -40,8 +40,10 @@ def get_todos(auth_token):
 
         # find <li>'s with #todo text and print
         tree = ET.fromstring(note.content)
-        elems = tree.findall('.//li')
-        todo_elems = filter(lambda e: '#todo' in e.text, elems)
+        elems = tree.findall('.//li') or []
+
+        # can be empty as #todo search omits the #
+        todo_elems = filter(lambda e: e.text and '#todo' in e.text, elems) or []
         for elem in todo_elems:
             s = '%s :: %s' % (note_search_result.title, elem.text)
             print s
@@ -55,3 +57,5 @@ def get_todos(auth_token):
 #     get_todos(dev_token)
 # except Exception as e:
 #     print 'Exception: %s' % e
+#     import traceback
+#     traceback.print_exc()
