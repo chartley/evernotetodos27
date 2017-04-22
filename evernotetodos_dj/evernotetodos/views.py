@@ -1,17 +1,16 @@
 from django.shortcuts import HttpResponse
 
 from main import get_todos
+from utils import get_user_evernote_note
 
 def oauth(request):
     return HttpResponse("Oauth stuff goes here")
 
-def oauth_done(request):
-    account = request.user.socialaccount_set.all()[0]
-    socialtoken = account.socialtoken_set.all()[0]
-
-    print 'token: %s' % socialtoken.token
+def profile(request):
+    auth_token = get_user_evernote_note(request.user)
 
     todos = get_todos(socialtoken.token)
+
     response = 'Done:\n<ul>\n'
     for todo in todos:
         response += '<li>' + todo + '</li>\n'

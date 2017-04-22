@@ -16,11 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from evernotetodos.views import oauth_done
+from evernotetodos.views import profile
 
 urlpatterns = [
-    url(r'^accounts/profile/$', oauth_done),
+    url(r'^accounts/profile/$', profile),
     url(r'^accounts/', include('allauth.urls')),
 
+    url('^', include('django.contrib.auth.urls')),
     url(r'^admin/', admin.site.urls),
 ]

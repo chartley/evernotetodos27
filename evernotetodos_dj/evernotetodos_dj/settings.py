@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.evernote',
+
+    'evernotetodos',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +59,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'evernotetodos_dj.urls'
+
+print 'template in %s' % os.path.join(BASE_DIR, 'evernotetodos_dj/templates')
 
 TEMPLATES = [
     {
@@ -136,6 +140,17 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
+# via https://hmarr.com/2011/jan/26/using-amazons-simple-email-service-ses-with-django/
+
+EMAIL_BACKEND = 'django_ses.SESBackend'
+
+# AWS for SES use
+
+AWS_ACCESS_KEY_ID = 'AKIAINN76UGZJLDH3QIA'
+AWS_SECRET_ACCESS_KEY = 'YOUR-SECRET-ACCESS-KEY'
+AWS_SES_REGION_NAME = 'us-west-2'
+AWS_SES_REGION_ENDPOINT = 'email.us-west-2.amazonaws.com'
 
 # Site required; http://stackoverflow.com/a/35389220
 
