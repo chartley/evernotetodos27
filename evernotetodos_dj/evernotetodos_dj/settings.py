@@ -160,7 +160,7 @@ SITE_ID = 3
 
 SOCIALACCOUNT_PROVIDERS = {
     'evernote': {
-        'EVERNOTE_HOSTNAME': 'evernote.com'  # defaults to sandbox.evernote.com
+        'EVERNOTE_HOSTNAME': 'www.evernote.com'  # defaults to sandbox.evernote.com
     }
 }
 
