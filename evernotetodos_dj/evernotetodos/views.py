@@ -9,7 +9,7 @@ def oauth(request):
 def profile(request):
     auth_token = get_user_evernote_note(request.user)
 
-    todos = get_todos(socialtoken.token)
+    todos = get_todos(auth_token)
 
     response = 'Done:\n<ul>\n'
     for todo in todos:

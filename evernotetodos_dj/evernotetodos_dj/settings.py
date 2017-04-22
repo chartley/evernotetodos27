@@ -60,8 +60,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'evernotetodos_dj.urls'
 
-print 'template in %s' % os.path.join(BASE_DIR, 'evernotetodos_dj/templates')
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
