@@ -148,3 +148,10 @@ SOCIALACCOUNT_PROVIDERS = {
         'EVERNOTE_HOSTNAME': 'evernote.com'  # defaults to sandbox.evernote.com
     }
 }
+
+# Import local settings if provided
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
