@@ -11,8 +11,7 @@ def get_todos(auth_token):
     # check token has basic auth by listing notes (allowed without full auth)
     try:
         notebooks = note_store.listNotebooks()
-        n_notebooks = len(notebooks)
-        print '[OK] Evernote API working, %s notebooks' % n_notebooks
+        # print '[OK] Evernote API working, %s notebooks' % len(notebooks)
     except Exception as e:
         print '[FAIL] Evernote API failure: %s' % e
 
@@ -23,7 +22,7 @@ def get_todos(auth_token):
     spec = NoteStore.NotesMetadataResultSpec()
     spec.includeTitle = True
     note_list = note_store.findNotesMetadata(auth_token, notefilter, 0, 100, spec)
-    print 'Search for #todo found %d notes' % note_list.totalNotes
+    # print 'Search for #todo found %d notes' % note_list.totalNotes
 
     # for each note, pull the #todo lines
     todos = []
@@ -46,7 +45,6 @@ def get_todos(auth_token):
         todo_elems = filter(lambda e: e.text and '#todo' in e.text, elems) or []
         for elem in todo_elems:
             s = '%s :: %s' % (note_search_result.title, elem.text)
-            print s
             todos.append(s)
 
     return todos
