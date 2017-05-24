@@ -13,17 +13,30 @@ class EvernoteScannerTestCase(TestCase):
         pass
 
     @patch('evernotetodos.main.EvernoteClient')
-    def test_get_todos_unicode(self, MockEvernoteClient):
+    def test_get_todos_unicode_content(self, MockEvernoteClient):
         """Test we can handle unicode note titles"""
         notes = [
             TestNote(1, "Chunqi", ["Stuff"]),
-            TestNote(2, "Ravi", ["#todo sécurity camera"]),
+            TestNote(2, "Ravi", ["#todo thé thing"]),
         ]
         self.config_mock_evernoteclient(MockEvernoteClient, notes)
 
 
         todos = main.get_todos('mock_auth_token')
-        self.assertEqual(todos, [])
+        self.assertEqual(todos, [u'Ravi :: #todo th\xe9 thing'])
+
+    @patch('evernotetodos.main.EvernoteClient')
+    def test_get_todos_unicode_title(self, MockEvernoteClient):
+        """Test we can handle unicode note titles"""
+        notes = [
+            TestNote(1, "Chunqi", ["Stuff"]),
+            TestNote(2, "André", ["#todo thing"]),
+        ]
+        self.config_mock_evernoteclient(MockEvernoteClient, notes)
+
+
+        todos = main.get_todos('mock_auth_token')
+        self.assertEqual(todos, [u'Andr\xe9 :: #todo thing'])
 
     @staticmethod
     def config_mock_evernoteclient(MockEvernoteClient, notes):

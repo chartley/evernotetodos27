@@ -39,7 +39,7 @@ def get_todos(auth_token):
         )
 
         # find <li>'s with #todo text and print
-        tree = ET.fromstring(note.content)
+        tree = ET.fromstring(note.content.encode('utf-8'))
         elems = tree.findall('.//li') or []
 
         # can be empty as #todo search omits the #
