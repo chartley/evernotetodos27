@@ -31,7 +31,7 @@ class EvernoteScannerTestCase(TestCase):
         """Test we can handle unicode note titles"""
         notes = [
             TestNote(1, "Chunqi", ["Stuff"]),
-            TestNote(2, "André", ["#todo thing"]),
+            TestNote(2, u"André", ["#todo thing"]),
         ]
         self.config_mock_evernoteclient(MockEvernoteClient, notes)
 

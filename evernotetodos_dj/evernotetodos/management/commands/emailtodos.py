@@ -32,7 +32,7 @@ class Command(BaseCommand):
             # send email
             send_mail(
                 'Summary of #todo for user %s' % user.pk,
-                email_body,
+                email_body.decode('ascii', 'ignore'),
                 'django@chrtly.com',
                 [user.email],
                 fail_silently=False,
