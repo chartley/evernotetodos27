@@ -26,7 +26,8 @@ class Command(BaseCommand):
                 for todo in todos:
                     email_body += todo + '\n'
             except Exception as e:
-                email_body += 'Exception: %s' % e
+                import traceback
+                email_body += 'Exception: %s\n%s' % (e, traceback.format_exc())
 
             # send email
             send_mail(
