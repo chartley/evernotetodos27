@@ -38,28 +38,18 @@ def get_todos(auth_token):
         )
 
         # find <li>'s with #todo text and print
-        tree = ET.fromstring(clean_string(note.content))
+        tree = ET.fromstring(note.content.encode('utf-8'))
         elems = tree.findall('.//li') or []
 
         # can be empty as #todo search omits the #
         todo_elems = filter(lambda e: e.text and '#todo' in e.text, elems) or []
         for elem in todo_elems:
-            title = clean_string(note_search_result.title)
-            element_text = clean_string(elem.text)
-            s = '%s :: %s' % (title, element_text)
+            title = note_search_result.title
+            element_text = elem.text
+            s = u'%s :: %s' % (title, element_text)
             todos.append(s)
 
     return todos
-
-
-def clean_string(in_string):
-    """ Clean string by utf-8 encoding if ascii fails
-    """
-    try:
-        in_string.decode('ascii', 'replace')
-        return in_string
-    except:
-        return in_string.encode('utf-8')
 
 
 # import sys
