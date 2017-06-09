@@ -39,6 +39,18 @@ class EvernoteScannerTestCase(TestCase):
         todos = main.get_todos('mock_auth_token')
         self.assertEqual(todos, [u'Andr\xe9 :: #todo thing'])
 
+    @patch('evernotetodos.main.EvernoteClient')
+    def test_get_todos_case_insensitive(self, MockEvernoteClient):
+        """Test we can handle upper / lower case"""
+        notes = [
+            TestNote(1, u'Someone', [u'#ToDo thing']),
+        ]
+        self.config_mock_evernoteclient(MockEvernoteClient, notes)
+
+
+        todos = main.get_todos('mock_auth_token')
+        self.assertEqual(todos, [u'Someone :: #ToDo thing'])
+
     @staticmethod
     def config_mock_evernoteclient(MockEvernoteClient, notes):
         note_list = Mock()

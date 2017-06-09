@@ -41,8 +41,8 @@ def get_todos(auth_token):
         tree = ET.fromstring(note.content.encode('utf-8'))
         elems = tree.findall('.//li') or []
 
-        # can be empty as #todo search omits the #
-        todo_elems = filter(lambda e: e.text and '#todo' in e.text, elems) or []
+        # can be empty as #todo search omits the # . Use .lower() to icase
+        todo_elems = filter(lambda e: e.text and '#todo' in e.text.lower(), elems) or []
         for elem in todo_elems:
             title = note_search_result.title
             element_text = elem.text
