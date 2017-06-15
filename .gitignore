@@ -90,3 +90,6 @@ ENV/
 
 # SQLite local db
 db.sqlite3
+
+# Mac image cache
+.DS_Store

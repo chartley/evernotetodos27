@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.generic.base import TemplateView
 
 from evernotetodos.views import profile
 
 urlpatterns = [
     url(r'^accounts/profile/$', profile),
     url(r'^accounts/', include('allauth.urls')),
+
+    url(r'^geofilter$', TemplateView.as_view(template_name='geofilter.html'), name="geofilter"),
 
     url('^', include('django.contrib.auth.urls')),
     url(r'^admin/', admin.site.urls),

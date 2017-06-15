@@ -1,0 +1,112 @@
+.panel{
+    width: 310px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 1px 1px, rgba(0, 0, 0, 0.15) 1px 8px 12px !important;
+}
+
+.canvas-container {
+    position:absolute !important;
+    top: 78px !important;
+}
+
+.Import {
+    position: relative !important;
+}
+
+.button-link {
+    text-decoration: none !important;
+    color: white !important;
+    cursor: pointer;
+    font: bold 11px Arial;
+    background-color: rgb(0, 188, 212);
+    color: #333333;
+    padding: 6px 12px 6px 12px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+}
+
+.img-table {
+    background-repeat: no-repeat;
+    margin-top: 5px;
+    margin-left: 5px;
+    background-size: 150px, 200px;
+    width: 100%;
+    background-position: center;
+    margin-bottom: 10px;
+
+}
+
+.popover-content {
+    padding: 0px 0px !important;
+}
+
+.strokes {
+    margin: 1px 1px 10px 1px;
+    background: rgb(0, 188, 212);
+    color: white;
+    font-size: 19px;
+}
+
+.temp-container-content {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 1px 1px, rgba(0, 0, 0, 0.15) 1px 8px 12px;
+    background-repeat: no-repeat;
+    margin-top: 2px;
+    height: 150px;
+    width: 140px;
+    background-size: 135px 180px;
+    background-position: center;
+}
+
+.palitraIcon {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background-image: url(https://cdn1.iconfinder.com/data/icons/education-colored-icons-vol-1/128/009-512.png);
+    background-size: 20px 20px;
+}
+
+.canvas-box {
+    border: 10px solid transparent;
+    height: 700px;
+    background-image: url('/static/media/iphone7.png');
+    background-size: 299px 616px;
+    background-repeat: no-repeat;
+}
+
+
+.show-grid {
+    min-width: 900px;
+}
+.center {
+    margin: auto;
+    width: 50%;
+}
+.container {
+    margin-left: 0px !important;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.image-container-content {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 1px 1px, rgba(0, 0, 0, 0.15) 1px 8px 12px;
+    background-repeat: no-repeat;
+    margin-top: 5px;
+    margin-left: 5px;
+    background-size: 135px 130px;
+    width: 100%;
+    background-position: center;
+    margin-bottom: 10px; }
+
+.sketch-picker {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.right-panel {
+    width: 250px;
+    margin-top: 60px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.15) 0px 8px 16px
+}
