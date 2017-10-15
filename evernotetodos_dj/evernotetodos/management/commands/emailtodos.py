@@ -24,7 +24,7 @@ class Command(BaseCommand):
 
                 # render to email string
                 for todo in todos:
-                    email_body += todo + '\n'
+                    email_body += todo.item_string + '\n'
             except Exception as e:
                 import traceback
                 email_body += 'Exception: %s\n%s' % (e, traceback.format_exc())

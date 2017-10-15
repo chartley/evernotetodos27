@@ -13,6 +13,6 @@ def profile(request):
 
     response = 'Done:\n<ul>\n'
     for todo in todos:
-        response += '<li>' + todo + '</li>\n'
+        response += '<li>' + todo.item_string + '</li>\n'
     response += '</ul>\n'
     return HttpResponse(response)
