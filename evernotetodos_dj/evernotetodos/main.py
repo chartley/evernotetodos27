@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
+from django.conf import settings
 from xml.etree import ElementTree as ET
 
 from evernote.api.client import EvernoteClient, NoteStore
 
 def get_todos(auth_token):
-    client = EvernoteClient(token=auth_token, sandbox=False)
+    client = EvernoteClient(token=auth_token, sandbox=settings.EVERNOTE_IS_SANDBOX)
     note_store = client.get_note_store()
 
     # check token has basic auth by listing notes (allowed without full auth)

@@ -162,6 +162,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+EVERNOTE_IS_SANDBOX = False
+
 # Import local settings if provided
 
 try:
