@@ -54,9 +54,14 @@ def get_todos(auth_token):
         elems = tree.findall('.//li') or []
 
         # can be empty as #todo search omits the # . Use .lower() to icase
-        todo_elems = filter(lambda e: e.text and '#todo' in e.text.lower(), elems) or []
+        todo_elems = filter(lambda e: '#todo' in ET.tostring(e).lower(), elems) or []
         for elem in todo_elems:
             title = convert_to_unicode(note_search_result.title)
+
+            # sometimes the <li>s contain <div>s which makes elem.text empty
+            if not elem.text and list(elem):
+                elem = list(elem)[0]
+
             element_text = convert_to_unicode(elem.text)
             s = u'%s :: %s' % (title, element_text)
             todos.append(ToDo(note_updated, s))

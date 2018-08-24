@@ -61,6 +61,18 @@ class EvernoteScannerTestCase(TestCase):
         self.assertEqual(todos, [expected_todo])
 
 
+    @patch('evernotetodos.main.EvernoteClient')
+    def test_get_todos_internal_divs(self, MockEvernoteClient):
+        """Test we can handle the <li>s conatining <divs> instead of text"""
+        notes = [
+            TestNote(1, u'Someone', [u'<div>#todo thing</div>']),
+        ]
+        self.config_mock_evernoteclient(MockEvernoteClient, notes)
+
+        todos = main.get_todos('mock_auth_token')
+        expected_todo = main.ToDo(EvernoteScannerTestCase.note_timestamp, u'Someone :: #todo thing')
+        self.assertEqual(todos, [expected_todo])
+
     @staticmethod
     def config_mock_evernoteclient(MockEvernoteClient, notes):
         note_list = Mock()
@@ -96,3 +108,14 @@ class TestNote(object):
             'title': self.title,
         }
         return Mock(**spec)
+
+
+# some sample output showing different formats
+
+# older note, with XML header and no internal divs
+# <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+# <!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd">
+# <en-note><div><div><div>Links</div><div><ul><li>1:1 Notes - <a style="color: rgb(0, 0, 238); text-decoration: underline;" href="https://fb.quip.com/D9ilAVYCYtZK">https://fb.quip.com/D9ilAVYCYtZK</a></li></ul></div><div><ul><li>Great tech-talk on BC Downranking experiment #psc</li></ul>
+
+# one here, without XML header and with <div>s inside <li>s
+# <!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd"><en-note><div>1:1 8/10/2018</div><ul><li><div>Has done growth and monetization</div></li><li><div>Intro to Dave, Jesse #todo</div></li></ul></en-note>
