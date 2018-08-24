@@ -11,7 +11,18 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('user_ids', nargs='+', type=int)
 
+        # allow --debug to print out
+        parser.add_argument(
+            '--debug',
+            action='store_true',
+            dest='debug',
+            help='Debug print output instead of emailing',
+        )
+
     def handle(self, *args, **options):
+        if options['debug']:
+            print '### DEBUG MODE ###'
+
         for user_id in options['user_ids']:
             # get user
             user = User.objects.get(pk=user_id)
@@ -29,11 +40,15 @@ class Command(BaseCommand):
                 import traceback
                 email_body += 'Exception: %s\n%s' % (e, traceback.format_exc())
 
-            # send email
-            send_mail(
-                'Summary of #todo for user %s' % user.pk,
-                email_body,
-                'django@chrtly.com',
-                [user.email],
-                fail_silently=False,
-            )
+
+            if options['debug']:
+                print email_body + '\n'
+            else:
+                # send email
+                send_mail(
+                    'Summary of #todo for user %s' % user.pk,
+                    email_body,
+                    'django@chrtly.com',
+                    [user.email],
+                    fail_silently=False,
+                )
