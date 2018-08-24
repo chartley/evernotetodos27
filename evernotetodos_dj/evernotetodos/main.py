@@ -11,6 +11,10 @@ class ToDo(object):
         self.note_update_timestamp = note_update_timestamp
         self.item_string = item_string
 
+    def __eq__(self, other):
+        return self.note_update_timestamp == other.note_update_timestamp \
+               and self.item_string == other.item_string
+
 def get_todos(auth_token):
     client = EvernoteClient(token=auth_token, sandbox=settings.EVERNOTE_IS_SANDBOX)
     note_store = client.get_note_store()

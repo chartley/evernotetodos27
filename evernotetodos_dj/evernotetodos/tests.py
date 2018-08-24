@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import datetime
+
 from django.test import TestCase
 # from evernote.api.client import EvernoteClient, NoteStore
 from mock import MagicMock, Mock, patch
@@ -9,12 +11,15 @@ import main
 
 # Create your tests here.
 class EvernoteScannerTestCase(TestCase):
+    note_unixtime = 1535130165000
+    note_timestamp = datetime.datetime.fromtimestamp(note_unixtime/1000)
+
     def setUp(self):
         pass
 
     @patch('evernotetodos.main.EvernoteClient')
     def test_get_todos_unicode_content(self, MockEvernoteClient):
-        """Test we can handle unicode note titles"""
+        """Test we can handle unicode note content"""
         notes = [
             TestNote(1, 'Chunqi', ['Stuff']),
             TestNote(2, 'Ravi', [u'#todo thé thing']),
@@ -22,9 +27,12 @@ class EvernoteScannerTestCase(TestCase):
         ]
         self.config_mock_evernoteclient(MockEvernoteClient, notes)
 
-
         todos = main.get_todos('mock_auth_token')
-        self.assertEqual(todos, [u'Ravi :: #todo thé thing', u'Ren :: #todo weird space'])
+        expected_todos = [ \
+            main.ToDo(EvernoteScannerTestCase.note_timestamp, u'Ravi :: #todo thé thing'),\
+            main.ToDo(EvernoteScannerTestCase.note_timestamp, u'Ren :: #todo weird space')]
+        self.assertEqual(todos, expected_todos)
+
 
     @patch('evernotetodos.main.EvernoteClient')
     def test_get_todos_unicode_title(self, MockEvernoteClient):
@@ -35,9 +43,10 @@ class EvernoteScannerTestCase(TestCase):
         ]
         self.config_mock_evernoteclient(MockEvernoteClient, notes)
 
-
         todos = main.get_todos('mock_auth_token')
-        self.assertEqual(todos, [u'Andr\xe9 :: #todo thing'])
+        expected_todo = main.ToDo(EvernoteScannerTestCase.note_timestamp, u'Andr\xe9 :: #todo thing')
+        self.assertEqual(todos, [expected_todo])
+
 
     @patch('evernotetodos.main.EvernoteClient')
     def test_get_todos_case_insensitive(self, MockEvernoteClient):
@@ -47,9 +56,10 @@ class EvernoteScannerTestCase(TestCase):
         ]
         self.config_mock_evernoteclient(MockEvernoteClient, notes)
 
-
         todos = main.get_todos('mock_auth_token')
-        self.assertEqual(todos, [u'Someone :: #ToDo thing'])
+        expected_todo = main.ToDo(EvernoteScannerTestCase.note_timestamp, u'Someone :: #ToDo thing')
+        self.assertEqual(todos, [expected_todo])
+
 
     @staticmethod
     def config_mock_evernoteclient(MockEvernoteClient, notes):
@@ -59,7 +69,8 @@ class EvernoteScannerTestCase(TestCase):
         def stub_get_note(auth_token, guid, *args):
             for note in notes:
                 if note.guid == guid:
-                    return Mock(content=note.content)
+                    return Mock(content=note.content, \
+                                updated=EvernoteScannerTestCase.note_unixtime)
             return None
 
         note_store = Mock()
